@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- --------------------- Created By InCoder --------------------- -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App - InCoder</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body>
+    <div class="mainContainer">
+        <div class="searchInput">
+            <input type="text" placeholder="Enter City Name" id="inp1" value="karachi" />
+            <button id="btn1"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+        <div class="weatherDetails">
+            <div class="weatherIcon">
+                <img src="https://th.bing.com/th?id=OIP.bFm_HgRBnSZChOdvqnba6QHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2"
+                    alt="Clouds" id="temp-image">
+            </div>
+            <div class="cityDetails">
+                <div class="weather" id="weather">
+                    <h1 id="temperature"></h1>
+                </div>
+                <div class="desc"></div>
+            </div>
+            <div class="windDetails">
+                <div class="humidityBox">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhgr7XehXJkOPXbZr8xL42sZEFYlS-1fQcvUMsS2HrrV8pcj3GDFaYmYmeb3vXfMrjGXpViEDVfvLcqI7pJ03pKb_9ldQm-Cj9SlGW2Op8rxArgIhlD6oSLGQQKH9IqH1urPpQ4EAMCs3KOwbzLu57FDKv01PioBJBdR6pqlaxZTJr3HwxOUlFhC9EFyw/s320/thermometer.png"
+                        alt="Humidity">
+                    <div>
+                        <p class="humidity" id="p1"></p><span>Humidity</span>
+                    </div>
+                </div>
+                <div class="windSpeed">
+                    <img
+                        src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiyaIguDPkbBMnUDQkGp3wLRj_kvd_GIQ4RHQar7a32mUGtwg3wHLIe0ejKqryX8dnJu-gqU6CBnDo47O7BlzCMCwRbB7u0Pj0CbtGwtyhd8Y8cgEMaSuZKrw5-62etXwo7UoY509umLmndsRmEqqO0FKocqTqjzHvJFC2AEEYjUax9tc1JMWxIWAQR4g/s320/wind.png">
+                    <div>
+                        <p class="windSpeed" id="p2"></p><span>Wind Speed</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var button = document.getElementById("btn1");
+        var para1 = document.getElementById("p1");
+        var para2 = document.getElementById("p2");
+        var image = document.getElementById("temp-image");
+        button.addEventListener("click", () => {
+
+            var input = document.getElementById("inp1").value;
+            fetch(`https://api.openweathermap.org/data/2.5/weather?units=metric&q=${input}&appid=cf79a0e0a8746a9a67cab7434671b81e`)
+                .then(data => data.json())
+                .then(json => {
+                    console.log(json)
+
+
+                    var temperature = document.getElementById("temperature");
+                    temperature.innerText = json.main.temp
+                    para1.innerText = json.main.humidity
+                    para2.innerText = json.wind.speed
+                    if (json.main.temp >= "30.9") {
+                        image.src = "https://th.bing.com/th?id=OIP.4EQ_Y8e7pLtE4hTRLut3OwHaFD&w=302&h=206&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2"
+                    } else if (json.main.temp >= "40.4") {
+                        image.src = "https://th.bing.com/th?id=OIP.d1g8CBcKsBWfBWcsXQvdtgHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2"
+                    }
+
+                })
+
+        })
+
+
+
+    </script>
+
+</body>
+
+</html>
